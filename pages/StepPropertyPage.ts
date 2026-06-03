@@ -17,7 +17,8 @@ export class StepPropertyPage {
     }
 
     async selectProperty(propertyType: string): Promise<void> {
-        // Real radio inputs linked to labels via for/id — getByLabel is semantic and accessible
+        //label normalization pattern to handle the gap between what users might type vs what the actual DOM contains.
+        // Type radio inputs => getByLabel is semantic and accessible
         // Label text observed in DOM: "Owned House / Condo", "Rental Property", "Mobile Home"
         const labelMap: Record<string, string> = {
             'owned house/condo': 'Owned House / Condo',

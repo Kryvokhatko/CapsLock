@@ -18,7 +18,7 @@ export class StepInterestPage {
     }
     
     async checkOption(option: string): Promise<void> {
-        // Checkboxes are CSS-hidden; real user interaction is clicking the visible label
+        // Type checkboxes are CSS-hidden, real user interacts by clicking the visible label
         await this.stepContainer.locator('label').filter({ hasText: option }).click();
     }
     
