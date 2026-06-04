@@ -2,7 +2,7 @@ export const ZIP = {
   serviceAvailable: '68901',
   outOfArea: '11111',
   tooShort: '1234',
-  tooLong: '123456',
+  tooLong: '689011',
   nonNumeric: 'ABCDE',
   zipPlus4: '12345-6789',
 } as const;

@@ -116,7 +116,8 @@ capslock/
    - **Rationale:** Highest priority. Validates the entire business conversion funnel for the primary form. A break here = zero conversions.
    - **Test Cases:**
      - TC01: Complete all 5 steps with valid data => /thankyou
-     - TC02: Progress counter increments correctly at each step **(DEF-08 — test.fail())**
+     - TC02: Each step shows its own question heading, advancing through all 5 steps
+     - TC03: Progress counter increments correctly at each step **(DEF-08 — test.fail())**
 
 #### 2. **US02: Form #2 Happy Path** ✅
    - **Rationale:** Both form copies carry equal customer value. HTML5 email validation operates on separate DOM instances. Form parity must be verified independently.
@@ -288,8 +289,9 @@ jobs:
 
 ## Framework Improvement Ideas
 
-(@Claude) - this one must be #1 
-Implementation of command-line interface (playwright-cli) for browser automation designed for coding agents to get advanced debug experience, test planing and test healing capabilities. (@Claude to improve this text)
+@Claude - this one must be #1 
+Implementation of command-line interface (playwright-cli) for browser automation designed for coding agents to get advanced debug experience, test planing and test healing capabilities. 
+@Claude to improve this text
 
 ### #2 Reporting capabilities 
 
@@ -334,9 +336,8 @@ If DEF-05 or DEF-02 are fixed in production, remove `test.fail()` annotation.
 
 ## Contact & Support
 
-- **Test Framework Owner:** [Serhii Kryvokhatko]
-- **GitHub:** [Repository Link]
-- **Playwright Docs:** https://playwright.dev
+- **Test Framework Owner:** Serhii Kryvokhatko
+- **GitHub:** https://github.com/Kryvokhatko/CapsLock
 - **Test App:** https://test-qa.capslock.global
 
 ---
