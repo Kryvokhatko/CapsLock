@@ -39,6 +39,7 @@ export class StepSorryPage {
     if (text == null) return null;
     return text.trim();
   }
+  
   async fillEmail(email: string): Promise<void> {
     await this.emailInput.fill(email);
   }

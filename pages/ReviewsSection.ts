@@ -19,9 +19,7 @@ export class ReviewsSection {
       .locator("section.background-lightBlue")
       .filter({ hasText: "See What People Are Saying" });
     // Section heading text, used to assert the right section rendered
-    this.sectionHeading = this.reviewsSection.getByText(
-      "See What People Are Saying",
-    );
+    this.sectionHeading = this.reviewsSection.getByText("See What People Are Saying",);
     // Individual review cards within the section
     this.reviewCards = this.reviewsSection.locator(".review");
     // "Show more" is rendered as span.moreless__txt with exact text

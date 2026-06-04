@@ -17,9 +17,7 @@ export class StepContactPage {
     const stepContainer = page.locator(".steps.step-4").nth(formIndex);
     this.nameInput = stepContainer.getByPlaceholder("Enter Your Name");
     this.emailInput = stepContainer.getByPlaceholder("Enter Your Email");
-    this.nextButton = stepContainer.getByRole("button", {
-      name: "Go To Estimate",
-    });
+    this.nextButton = stepContainer.getByRole("button", {name: "Go To Estimate",});
     // Name uses a custom .helpBlock error; email relies on native HTML5 validation
     this.nameError = stepContainer.locator(".helpBlock").nth(0);
   }

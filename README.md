@@ -86,7 +86,6 @@ capslock/
 ├── tsconfig.json                 # TypeScript config (used by `npm run typecheck`)
 ├── playwright.config.ts          # Playwright configuration
 ├── .prettierignore               # Paths excluded from formatting checks
-├── LICENSE                       # MIT license
 ├── .github/workflows/playwright.yml  # CI: install, run tests, upload report
 ├── data/
 │   └── testData.ts               # Centralized test data and constants
@@ -365,9 +364,3 @@ If DEF-05 or DEF-02 are fixed in production, remove `test.fail()` annotation.
 - **Test Framework Owner:** Serhii Kryvokhatko
 - **GitHub:** https://github.com/Kryvokhatko/CapsLock
 - **Test App:** https://test-qa.capslock.global
-
----
-
-## License
-
-MIT

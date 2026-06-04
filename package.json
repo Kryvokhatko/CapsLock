@@ -33,7 +33,8 @@
     "test-automation"
   ],
   "author": "Serhii Kryvokhatko",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "private": true,
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Kryvokhatko/CapsLock/issues"
