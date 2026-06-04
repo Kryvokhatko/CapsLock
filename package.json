@@ -2,16 +2,11 @@
   "name": "capslock",
   "version": "1.0.0",
   "description": "Playwright test automation for CapsLock walk-in tub quote form",
-  "main": "index.js",
-  "dependencies": {
-    "playwright": "^1.60.0",
-    "playwright-core": "^1.60.0",
-    "prettier": "^3.8.3",
-    "undici-types": "^7.24.6"
-  },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
-    "@types/node": "^25.9.1"
+    "@types/node": "^25.9.1",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
   },
   "scripts": {
     "test": "playwright test",
@@ -22,15 +17,23 @@
     "test:webkit": "playwright test --project=webkit",
     "test:ui": "playwright test --ui",
     "report": "playwright show-report",
-    "lint": "prettier --check ."
+    "lint": "prettier --check .",
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kryvokhatko/CapsLock.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "playwright",
+    "e2e",
+    "testing",
+    "typescript",
+    "page-object-model",
+    "test-automation"
+  ],
+  "author": "Serhii Kryvokhatko",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Kryvokhatko/CapsLock/issues"
