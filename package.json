@@ -1,18 +1,29 @@
 {
   "name": "capslock",
   "version": "1.0.0",
-  "description": "",
+  "description": "Playwright test automation for CapsLock walk-in tub quote form",
   "main": "index.js",
   "dependencies": {
     "playwright": "^1.60.0",
     "playwright-core": "^1.60.0",
+    "prettier": "^3.8.3",
     "undici-types": "^7.24.6"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.1"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "lint": "prettier --check ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kryvokhatko/CapsLock.git"
