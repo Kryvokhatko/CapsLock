@@ -90,6 +90,7 @@ capslock/
 ├── data/
 │   └── testData.ts               # Centralized test data and constants
 ├── pages/
+│   ├── BasePage.ts               # Abstract base class — shared page/locator helpers
 │   ├── StepZipPage.ts            # Step 1: ZIP code entry
 │   ├── StepInterestPage.ts       # Step 2: Interest selection
 │   ├── StepPropertyPage.ts       # Step 3: Property type selection
@@ -270,7 +271,8 @@ automated — it is documented in the Discovered Defects section only.
 
 ### Page Object Model (POM)
 
-- One class per form step/section
+- One class per form step/section, each extending the shared abstract `BasePage`
+- `BasePage` centralizes the `page`/`formIndex` fields and common helpers (`click`, `getVisibleText`) so subclasses focus on their own locators and flows
 - Methods return data or expose state, not make assertions
 - Locators use semantic selectors (role, label, placeholder) over CSS classes
 - Form index parameter (0 = Form #1, 1 = Form #2) allows targeting both form copies
@@ -347,7 +349,7 @@ Run `npx playwright install` to download browsers.
 
 ### Timeout Errors
 
-Increase `timeout` in `playwright.config.ts` if network is slow. Default is 30 seconds.
+Increase `timeout` in `playwright.config.ts` if network is slow. Default is 45 seconds.
 
 ### Locator Not Found
 
