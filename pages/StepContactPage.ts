@@ -1,25 +1,17 @@
 import { Page, Locator } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class StepContactPage {
-  readonly page: Page;
-  readonly formIndex: number;
-
-  private readonly nameInput: Locator;
-  private readonly emailInput: Locator;
-  private readonly nextButton: Locator;
-  private readonly nameError: Locator;
+export class StepContactPage extends BasePage {
+  // Step 4 has no <label> elements — inputs identified by placeholder
+  private readonly stepContainer: Locator = this.page.locator(".steps.step-4").nth(this.formIndex);
+  private readonly nameInput: Locator = this.stepContainer.getByPlaceholder("Enter Your Name");
+  private readonly emailInput: Locator = this.stepContainer.getByPlaceholder("Enter Your Email");
+  private readonly nextButton: Locator = this.stepContainer.getByRole("button", {name: "Go To Estimate",});
+  // Name uses a custom .helpBlock error; email relies on native HTML5 validation
+  private readonly nameError: Locator = this.stepContainer.locator(".helpBlock").nth(0);
 
   constructor(page: Page, formIndex: number = 0) {
-    this.page = page;
-    this.formIndex = formIndex;
-
-    // Step 4 has no <label> elements — inputs identified by placeholder
-    const stepContainer = page.locator(".steps.step-4").nth(formIndex);
-    this.nameInput = stepContainer.getByPlaceholder("Enter Your Name");
-    this.emailInput = stepContainer.getByPlaceholder("Enter Your Email");
-    this.nextButton = stepContainer.getByRole("button", {name: "Go To Estimate",});
-    // Name uses a custom .helpBlock error; email relies on native HTML5 validation
-    this.nameError = stepContainer.locator(".helpBlock").nth(0);
+    super(page, formIndex);
   }
 
   async fillName(name: string): Promise<void> {
@@ -35,10 +27,7 @@ export class StepContactPage {
   }
 
   async getNameErrorText(): Promise<string | null> {
-    const isVisible = await this.nameError.isVisible().catch(() => false);
-    return isVisible
-      ? ((await this.nameError.textContent())?.trim() ?? null)
-      : null;
+    return this.getVisibleText(this.nameError);
   }
 
   // Native HTML5 constraint-validation state of the email input

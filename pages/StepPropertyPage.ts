@@ -1,17 +1,12 @@
 import { Page, Locator } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class StepPropertyPage {
-  readonly page: Page;
-  readonly formIndex: number;
-
-  private readonly stepContainer: Locator;
-  private readonly nextButton: Locator;
+export class StepPropertyPage extends BasePage {
+  private readonly stepContainer: Locator = this.page.locator(".steps.step-3").nth(this.formIndex);
+  private readonly nextButton: Locator = this.stepContainer.getByRole("button", { name: "Next" });
 
   constructor(page: Page, formIndex: number = 0) {
-    this.page = page;
-    this.formIndex = formIndex;
-    this.stepContainer = page.locator(".steps.step-3").nth(formIndex);
-    this.nextButton = this.stepContainer.getByRole("button", { name: "Next" });
+    super(page, formIndex);
   }
 
   async selectProperty(propertyType: string): Promise<void> {
@@ -30,20 +25,14 @@ export class StepPropertyPage {
     const label = labelMap[propertyType.toLowerCase()];
     if (!label) throw new Error(`Unknown property type: "${propertyType}"`);
     // Radio inputs are CSS-hidden; real user interaction is clicking the visible label
-    await this.stepContainer
-      .locator("label")
-      .filter({ hasText: label })
-      .click();
+    await this.stepContainer.locator("label").filter({ hasText: label }).click();
   }
 
   async submit(): Promise<void> {
-    await this.nextButton.click();
+    await this.click(this.nextButton);
   }
 
   async isVisible(): Promise<boolean> {
-    return this.stepContainer
-      .locator("label")
-      .filter({ hasText: "Owned House / Condo" })
-      .isVisible();
+    return this.stepContainer.locator("label").filter({ hasText: "Owned House / Condo" }).isVisible();
   }
 }

@@ -1,25 +1,17 @@
 import { Page, Locator } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class StepSorryPage {
-  readonly page: Page;
-  readonly formIndex: number;
-
-  private readonly sorryMessage: Locator;
-  private readonly emailInput: Locator;
-  private readonly submitButton: Locator;
-  private readonly confirmationMessage: Locator;
+export class StepSorryPage extends BasePage {
+  private readonly stepContainer = this.page.locator(".steps.step-sorry").nth(this.formIndex);
+  // Avoid apostrophe encoding issues by matching a substring without special chars
+  private readonly sorryMessage: Locator = this.stepContainer.getByText(/Sorry, unfortunately/i);
+  // Sorry step uses input[type="text"][name="email"] — identified by placeholder
+  private readonly emailInput: Locator = this.stepContainer.getByPlaceholder("Email Address");
+  private readonly submitButton: Locator = this.stepContainer.getByRole("button", { name: "Submit" });
+  private readonly confirmationMessage: Locator = this.stepContainer.getByText(/Thank you for your/i);
 
   constructor(page: Page, formIndex: number = 0) {
-    this.page = page;
-    this.formIndex = formIndex;
-
-    const stepContainer = page.locator(".steps.step-sorry").nth(formIndex);
-    // Avoid apostrophe encoding issues by matching a substring without special chars
-    this.sorryMessage = stepContainer.getByText(/Sorry, unfortunately/i);
-    // Sorry step uses input[type="text"][name="email"] — identified by placeholder
-    this.emailInput = stepContainer.getByPlaceholder("Email Address");
-    this.submitButton = stepContainer.getByRole("button", { name: "Submit" });
-    this.confirmationMessage = stepContainer.getByText(/Thank you for your/i);
+    super(page, formIndex);
   }
 
   async isVisible(): Promise<boolean> {
@@ -45,15 +37,10 @@ export class StepSorryPage {
   }
 
   async submit(): Promise<void> {
-    await this.submitButton.click();
+    await this.click(this.submitButton);
   }
 
   async getConfirmationText(): Promise<string | null> {
-    const isVisible = await this.confirmationMessage
-      .isVisible()
-      .catch(() => false);
-    return isVisible
-      ? ((await this.confirmationMessage.textContent())?.trim() ?? null)
-      : null;
+    return this.getVisibleText(this.confirmationMessage);
   }
 }

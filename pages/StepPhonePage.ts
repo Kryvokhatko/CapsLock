@@ -1,21 +1,15 @@
 import { Page, Locator } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class StepPhonePage {
-  readonly page: Page;
-  readonly formIndex: number;
-
-  private readonly phoneInput: Locator;
-  private readonly submitButton: Locator;
+export class StepPhonePage extends BasePage {
+  private readonly stepContainer = this.page.locator(".steps.step-5").nth(this.formIndex);
+  private readonly phoneInput: Locator = this.stepContainer.getByPlaceholder("(XXX)XXX-XXXX");
+  private readonly submitButton: Locator = this.stepContainer.getByRole("button", {
+    name: "Submit Your Request",
+  });
 
   constructor(page: Page, formIndex: number = 0) {
-    this.page = page;
-    this.formIndex = formIndex;
-
-    const stepContainer = page.locator(".steps.step-5").nth(formIndex);
-    this.phoneInput = stepContainer.getByPlaceholder("(XXX)XXX-XXXX");
-    this.submitButton = stepContainer.getByRole("button", {
-      name: "Submit Your Request",
-    });
+    super(page, formIndex);    
   }
 
   async fillPhone(phone: string): Promise<void> {
@@ -23,7 +17,7 @@ export class StepPhonePage {
   }
 
   async submit(): Promise<void> {
-    await this.submitButton.click();
+    await this.click(this.submitButton);
   }
 
   async isVisible(): Promise<boolean> {

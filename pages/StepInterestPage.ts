@@ -1,36 +1,24 @@
 import { Page, Locator } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class StepInterestPage {
-  readonly page: Page;
-  readonly formIndex: number;
-
-  private readonly stepContainer: Locator;
-  private readonly nextButton: Locator;
+export class StepInterestPage extends BasePage {
+  private readonly stepContainer: Locator = this.page.locator(".steps.step-2").nth(this.formIndex);
+  private readonly nextButton: Locator = this.stepContainer.getByRole("button", { name: "Next" });
 
   constructor(page: Page, formIndex: number = 0) {
-    this.page = page;
-    this.formIndex = formIndex;
-
-    this.stepContainer = page.locator(".steps.step-2").nth(formIndex);
-    this.nextButton = this.stepContainer.getByRole("button", { name: "Next" });
+    super (page, formIndex);
   }
 
   async checkOption(option: string): Promise<void> {
     // Type checkboxes are CSS-hidden, real user interacts by clicking the visible label
-    await this.stepContainer
-      .locator("label")
-      .filter({ hasText: option })
-      .click();
+    await this.stepContainer.locator("label").filter({ hasText: option }).click();
   }
 
   async submit(): Promise<void> {
-    await this.nextButton.click();
+    await this.click(this.nextButton);
   }
 
   async isVisible(): Promise<boolean> {
-    return this.stepContainer
-      .locator("label")
-      .filter({ hasText: "Independence" })
-      .isVisible();
+    return this.stepContainer.locator("label").filter({ hasText: "Independence" }).isVisible();
   }
 }

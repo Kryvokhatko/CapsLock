@@ -1,22 +1,15 @@
 import { Page, Locator } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class ThankYouPage {
-  readonly page: Page;
-  private heading: Locator;
+export class ThankYouPage extends BasePage {
+  private heading: Locator = this.page.locator("h1, h2").filter({ hasText: /Thank You|thank you/i });
 
   constructor(page: Page) {
-    this.page = page;
-    this.heading = page
-      .locator("h1, h2")
-      .filter({ hasText: /Thank You|thank you/i });
+    super(page);
   }
 
   async getHeading(): Promise<string | null> {
-    const isVisible = await this.heading.isVisible().catch(() => false);
-    if (isVisible) {
-      return await this.heading.textContent();
-    }
-    return null;
+    return this.getVisibleText(this.heading);
   }
 
   async isVisible(): Promise<boolean> {
